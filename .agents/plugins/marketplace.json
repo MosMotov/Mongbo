@@ -1,0 +1,20 @@
+{
+  "name": "mongbo-local",
+  "interface": {
+    "displayName": "Mongbo"
+  },
+  "plugins": [
+    {
+      "name": "mongbo",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

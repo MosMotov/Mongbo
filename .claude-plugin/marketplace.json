@@ -1,0 +1,14 @@
+{
+  "name": "mongbo-local",
+  "description": "Install Mongbo from this local checkout.",
+  "owner": {
+    "name": "Mongbo"
+  },
+  "plugins": [
+    {
+      "name": "mongbo",
+      "source": "./",
+      "description": "Apply focused engineering guidance to software work and concise writing guidance to other deliverables."
+    }
+  ]
+}

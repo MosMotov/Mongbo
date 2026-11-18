@@ -1,0 +1,10 @@
+{
+  "name": "mongbo",
+  "version": "0.1.0",
+  "description": "Apply focused engineering guidance to software work and concise writing guidance to other deliverables.",
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "Mongbo"
+  }
+}
