@@ -23,12 +23,12 @@ Your requested language, format, tone, and level of detail take precedence.
 
 ## Install
 
-Download or clone this repository, then open a terminal in its root folder. Keep that folder available as the local marketplace source. Make sure your CLI can run `node --version` before installing.
+Download or clone this repository, then open a terminal in its root folder. The `./` in the commands below points to that folder. Keep the folder available as the local marketplace source. Make sure your CLI can run `node --version` before installing.
 
 ### Claude Code
 
 ```sh
-claude plugin marketplace add "$(pwd)"
+claude plugin marketplace add ./
 claude plugin install mongbo@mongbo-local
 ```
 
@@ -37,7 +37,7 @@ Start a new Claude Code session. To check the installation, run `claude plugin d
 ### Codex CLI
 
 ```sh
-codex plugin marketplace add "$(pwd)"
+codex plugin marketplace add ./
 codex plugin add mongbo@mongbo-local
 ```
 
