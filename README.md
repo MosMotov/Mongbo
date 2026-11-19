@@ -8,7 +8,7 @@
 
 <p align="center">
   An agent skill and plugin for Claude Code and Codex CLI.<br>
-  <a href="#install">Install</a> · <a href="#try-it">Try it</a> · <a href="#compatibility">Compatibility</a>
+  <a href="#install">Install</a> · <a href="#try-it">Try it</a> · <a href="#same-prompt-with-and-without-mongbo">Comparison</a> · <a href="#compatibility">Compatibility</a>
 </p>
 
 Mongbo chooses how to work based on what you ask for. When its plugin is enabled and its hooks are allowed to run, Mongbo loads automatically in new sessions. You can switch from translating a notice to fixing a bug in the same conversation.
@@ -55,6 +55,80 @@ Send these prompts in the same session. Mongbo picks its guidance for each reque
 - **Writing mode** applies to noncoding responses and starts at `standard`. Say “Writing mode ultra” for tighter phrasing, “Writing mode wenyan” for Classical Chinese, “Writing mode standard” for the default, or “Writing mode off”. Say “Writing mode status” to check the current mode.
 
 Modes last for the conversation. “Normal mode” turns both off.
+
+## Same prompt with and without Mongbo
+
+We sent the same prompt to two fresh sessions on Windows using Codex CLI 0.169.1 and `gpt-6.2-sol` at `medium` reasoning. We installed Mongbo from this repository (`bb2d027`) between runs and confirmed that the second session read both guidance files. Each column describes one run. The replies below are verbatim.
+
+| Check | Without Mongbo | With Mongbo |
+| --- | --- | --- |
+| JavaScript fix | Changed `>= 30` to `> 30`. | Changed `>= 30` to `> 30`. |
+| Boundary at 29, 30, and 31 minutes | Listed the three correct expected results. | Ran three passing Node.js assertions and included them in the reply. |
+| Customer notice | Kept the fee rule, the EXPRESS exception, and the side entrance instruction. | Kept the same details and included the `PAY-07` policy ID. |
+
+<details>
+<summary>Prompt used in both sessions</summary>
+
+```text
+A shop treats orders received exactly 30 minutes after opening as on time. Its JavaScript currently says:
+
+function isLate(minutes) {
+  return minutes >= 30;
+}
+
+Show the fix and how you would verify the boundary.
+
+Separately, summarize this notice for customers:
+"Please be advised that under policy PAY-07 there is no processing fee for the first 30 minutes, except for EXPRESS orders. During those 30 minutes, customers should use the side entrance."
+```
+
+</details>
+
+<details>
+<summary>Reply without Mongbo</summary>
+
+```js
+function isLate(minutes) {
+  return minutes > 30;
+}
+```
+
+Verify just below, exactly at, and just above the cutoff. Expected results are `isLate(29) === false`, `isLate(30) === false`, and `isLate(31) === true`.
+
+**Customer notice**
+
+For the first 30 minutes after opening, there’s no processing fee except for EXPRESS orders. Please use the side entrance during that time.
+
+</details>
+
+<details>
+<summary>Reply with Mongbo</summary>
+
+### JavaScript fix
+
+Use `>` so an order received exactly 30 minutes after opening is on time.
+
+```js
+function isLate(minutes) {
+  return minutes > 30;
+}
+```
+
+I ran these boundary checks in Node.js. All three passed.
+
+```js
+const assert = require('node:assert/strict');
+
+assert.equal(isLate(29), false);
+assert.equal(isLate(30), false);
+assert.equal(isLate(31), true);
+```
+
+### Customer notice
+
+Under policy PAY-07, there’s no processing fee during the first 30 minutes, except for EXPRESS orders. Please use the side entrance during those 30 minutes.
+
+</details>
 
 ## Compatibility
 
