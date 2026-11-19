@@ -42,7 +42,7 @@ for (const event of ['SessionStart', 'SubagentStart']) {
     const dir = path.join(plugin, 'skills', 'mongbo');
     assert.ok(output.additionalContext.includes(dir));
     assert.ok(output.additionalContext.includes(fs.readFileSync(path.join(dir, 'SKILL.md'), 'utf8')));
-    for (const policy of ['coding', 'noncoding']) {
+    for (const policy of ['coding', 'review', 'noncoding']) {
       assert.ok(output.additionalContext.includes('references/' + policy + '.md'));
       assert.ok(!output.additionalContext.includes(fs.readFileSync(path.join(dir, 'references', policy + '.md'), 'utf8')));
     }

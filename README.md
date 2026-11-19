@@ -15,8 +15,8 @@ Mongbo chooses how to work based on what you ask for. When its plugin is enabled
 
 | Task | How Mongbo handles it |
 | --- | --- |
-| Coding, debugging, testing, review, and technical explanations | Make the smallest readable change that solves the whole request. Reuse existing code, verify the affected behavior, and report what was checked. |
-| Summaries, translations, naming, and general writing | Lead with the answer. Keep the facts, exceptions, units, and exact wording that matter. |
+| Coding, debugging, testing, and technical explanations | Ponytail traces the affected behavior, chooses the smallest complete change, and checks it through the usual entry point. Requested reviews and audits follow Ponytail's evidence and severity rules. |
+| Summaries, translations, naming, and general writing | Caveman leads with the answer, removes filler, and keeps facts, negations, exceptions, units, and exact wording. Material written for an outside audience uses prose suited to its purpose. |
 | Mixed requests | Apply each set of rules to the relevant deliverable. For a bug fix and customer email, use the coding guidance for the fix and the writing guidance for the email. |
 
 Your requested language, format, tone, and level of detail take precedence.
@@ -49,6 +49,9 @@ Send these prompts in the same session. Mongbo picks its guidance for each reque
 
 1. **Everyday writing.** “Summarize notice PAY-07 in one sentence for customers. No fee for the first 30 minutes, except for EXPRESS orders. Keep PAY-07 and EXPRESS exactly.” A concise answer could be “Under PAY-07, the first 30 minutes are free except for EXPRESS orders.”
 2. **Coding.** “Our late check uses `minutes >= 30`, but exactly 30 minutes is still on time. Explain the bug and which boundary tests to run.” Mongbo should identify `minutes > 30` as the correction and explain the expected results at 29, 30, and 31 minutes.
+3. **Mixed.** Say “Caveman ultra,” then “Explain that cutoff bug and give me a separate one-line summary of PAY-07.” The technical explanation should keep its code and reasoning. The summary can use fragments while preserving the 30-minute rule and the EXPRESS exception.
+
+Ponytail starts in **full**. Say “Ponytail lite”, “Ponytail ultra”, or “Ponytail off” to switch, and “Ponytail full” to restore the default. Say “Caveman ultra” for tighter phrasing, “Caveman wenyan” for Classical Chinese, “Caveman” for the standard voice, or “Stop Caveman” to turn it off. Say “Caveman status” to check the current mode. Modes last for the conversation. Caveman always applies only to noncoding responses. “Normal mode” turns both off.
 
 ## Compatibility
 
@@ -59,7 +62,7 @@ Version **0.1.0** was tested on Windows with Node.js 24.15.0.
 | Claude Code | 2.1.198 | Local install, session and child-agent hook context, disable, and uninstall verified with a local API test server. Response behavior with a live Claude model remains unverified. |
 | Codex CLI | 0.169.1 | Local install, lifecycle and child-agent hooks, disable, and uninstall verified. Live-model tests covered translation, a mixed bug fix and writing request, and a switch back to summarization. |
 
-The hooks load the [core skill](skills/mongbo/SKILL.md) from disk at session and child-agent startup. The agent reads the [coding](skills/mongbo/references/coding.md) or [noncoding](skills/mongbo/references/noncoding.md) guidance as needed. The hooks use Node.js built-ins and run locally.
+The hooks load the [core skill](skills/mongbo/SKILL.md) from disk at session and child-agent startup. The agent reads the complete [Ponytail](skills/mongbo/references/coding.md), [review and audit](skills/mongbo/references/review.md), or [Caveman](skills/mongbo/references/noncoding.md) guidance for the task. The hooks use Node.js built-ins and run locally.
 
 Run the bootstrap tests from the repository root.
 
