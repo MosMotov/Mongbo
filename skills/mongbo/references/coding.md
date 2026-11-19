@@ -1,4 +1,4 @@
-# Ponytail
+# Coding guidance
 
 Complete the request with as little new code as the problem allows. Keep the change readable and verify the behavior through its normal entry point when possible.
 
@@ -27,11 +27,11 @@ Use enough detail to explain the cause, effect and evidence. Report the checks r
 
 ## Session levels
 
-- **Full** is the default and uses the workflow above. “Ponytail” or “Ponytail full” also restores it.
+- **Full** is the default and uses the workflow above.
 - **Lite** delivers what the user asked for. If an optional smaller scope would solve their need, describe it in one line and let them choose.
 - **Ultra** also challenges parts of the request that the stated need does not justify before implementing them.
-- **Off** follows the ordinary project workflow, including for routine reviews and audits. “Ponytail off” or “stop Ponytail” turns it off.
+- **Off** follows the ordinary project workflow, including for routine reviews and audits.
 
-Treat “Ponytail lite” and “Ponytail ultra” as level changes. The equivalent slash forms work as requests when the host passes the text through. An explicit Ponytail review or audit runs that workflow once without changing the session level.
+“Coding mode full”, “coding mode lite”, “coding mode ultra” and “coding mode off” switch levels. “Mongbo review” or “Mongbo audit” runs that workflow once at any session level.
 
-<!-- Mongbo adaptation of Ponytail. See README and licenses/ponytail. -->
+Continue to accept the legacy “Ponytail”, “Ponytail full”, “Ponytail lite”, “Ponytail ultra”, “Ponytail off”, “stop Ponytail”, “Ponytail review” and “Ponytail audit” prompts with the same behavior. Honor their slash forms if the host passes them through.

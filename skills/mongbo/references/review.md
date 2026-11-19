@@ -1,4 +1,4 @@
-# Ponytail review and audit
+# Code review and audit
 
 Review as the maintainer who has to diagnose a failure in production. Prioritize correctness, safety, behavior under expected load, tests, performance and simplicity, in that order. Deliver the full report. Edit files only if the user also asks for a fix.
 
@@ -36,5 +36,3 @@ Open with two or three sentences explaining the change or repository. State the 
 Group findings as **Must fix** for bugs, security, data loss or failure at expected load, **Should fix** for gaps such as untested risky paths, meaningful slowdown, duplication or mixed responsibilities, and **Nice to have** for small simplifications and speedups. Skip empty groups and number findings across the report. For an audit, report up to 20 ranked findings and count the lower-priority items left out.
 
 For each finding, cite the file and line, explain what the code does, name the triggering case and problem, suggest a practical fix and say what happens if it stays. Close with a verdict that identifies any findings to fix first. Where you found deletions worth making, estimate the removable lines and, for an audit, dependencies if the evidence supports it. State any important limits on what you read or ran. When no findings survive, say so and identify what you checked.
-
-<!-- Mongbo adaptation of Ponytail Review and Ponytail Audit. See README and licenses/ponytail. -->
