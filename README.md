@@ -8,7 +8,7 @@
 
 <p align="center">
   An agent skill and plugin for Claude Code and Codex CLI.<br>
-  <a href="#install">Install</a> · <a href="#try-it">Try it</a> · <a href="#same-prompt-with-and-without-mongbo">Comparison</a> · <a href="#compatibility">Compatibility</a>
+  <a href="#install">Install</a> · <a href="#try-it">Try it</a> · <a href="#token-usage">Token usage</a> · <a href="#same-prompt-with-and-without-mongbo">Comparison</a> · <a href="#compatibility">Compatibility</a>
 </p>
 
 Mongbo chooses how to work based on what you ask for. When its plugin is enabled and its hooks are allowed to run, Mongbo loads automatically in new sessions. You can switch from translating a notice to fixing a bug in the same conversation.
@@ -55,6 +55,29 @@ Send these prompts in the same session. Mongbo picks its guidance for each reque
 - **Writing mode** applies to noncoding responses and starts at `standard`. Say “Writing mode ultra” for tighter phrasing, “Writing mode wenyan” for Classical Chinese, “Writing mode standard” for the default, or “Writing mode off”. Say “Writing mode status” to check the current mode.
 
 Modes last for the conversation. “Normal mode” turns both off.
+
+## Token usage
+
+On this writing prompt, `Writing mode ultra` cut the median reply from 105 to 59 estimated tokens (44% fewer). Standard mode produced the same median reply length as the baseline. Both modes used more total CLI tokens in fresh sessions.
+
+We used the same prompt in each run.
+
+> Why does a cold glass get water droplets on the outside, and how can I keep my table dry?
+
+| Baseline · ≈105 reply tokens | Mongbo ultra · ≈60 reply tokens |
+| --- | --- |
+| A cold glass cools the air right next to it. When that air reaches its **dew point**, some of its water vapor condenses into liquid droplets on the glass. The more humid the room, the more noticeable this tends to be.<br><br>To keep your table dry, use an **absorbent coaster** made of cork or felt. If you want to prevent most of the droplets in the first place, use a **double-walled insulated glass or tumbler**. Its outer wall stays closer to room temperature. | Condensation. The cold glass cools nearby air below its dew point, so water vapor in the air turns into droplets on the glass.<br><br>Use an absorbent coaster or a coaster with a raised rim to catch drips. A double-walled insulated glass helps prevent condensation by keeping the outside warmer. |
+
+The examples show the first baseline and ultra replies. The table below reports medians from three fresh sessions per condition.
+
+| Median tokens per run | Baseline | Mongbo standard | Mongbo ultra |
+| --- | ---: | ---: | ---: |
+| Reply text, estimated | 105 | 105 | 59 |
+| CLI input tokens | 13,552 | 29,257 | 29,347 |
+| CLI output tokens | 109 | 205 | 150 |
+| CLI input + output tokens | 13,661 | 29,463 | 29,495 |
+
+We used Codex CLI 0.169.1 on Windows with `gpt-6.2-sol` at `medium` reasoning. For the ultra runs, session instructions selected the mode while the user prompt stayed the same. Reply estimates use `o200k_base` on the final Markdown text. CLI totals include cached input and all model calls in the turn. Every Mongbo session read the writing guidance before answering.
 
 ## Same prompt with and without Mongbo
 
